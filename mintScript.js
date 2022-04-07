@@ -38,6 +38,16 @@ async function connect() {
 }
 
 async function check_status() {
+    //BaobabNetwork일 경우에만 작동
+    if (klaytn.networkVersion === 8217) {
+        alert("BaobabNetwork를 선택해 주세요.");
+    } else if (klaytn.networkVersion === 1001) {
+        console.log("테스트넷");
+    } else {
+        alert("ERROR: 클레이튼 네트워크로 연결되지 않았습니다!");
+        return;
+    }
+    
     const myContract = new caver.klay.Contract(ABI, CONTRACTADDRESS);
     await myContract.methods.mintingInformation().call()
         .then(function (result) {
